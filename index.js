@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer')
 const { MongoClient, ObjectId } = require('mongodb');
 
 const app = express();
@@ -8,6 +9,28 @@ const url = 'mongodb+srv://abhinav:abhi123@cluster0.qicwtqo.mongodb.net/Task';
 const dbName = 'Task'; 
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(multer().any())
+
+// app.post('/api/formdata', async (req, res) => {
+//   try {
+//     const formData = req.body; // Assuming the form data is sent in the request body
+//      console.log(formData)
+//     const client = await MongoClient.connect(url);
+//     const db = client.db("Task");
+//     const collection = db.collection("Task");
+
+//     const result = await collection.insertOne(formData);
+
+//     client.close();
+
+//     res.status(201).json({ message: 'Form data stored successfully', documentId: result.insertedId });
+//   } catch (error) {
+//     console.error('Failed to store form data:', error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
 
 //................................... E V E N T  _  C R E A T I O N ........................................................
 app.post('/api/v3/app/events', async (req, res) => {
